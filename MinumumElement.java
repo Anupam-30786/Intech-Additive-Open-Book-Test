@@ -2,7 +2,7 @@ import java.util.*;
 
 public class MinumumElement {
     static Stack<Integer> myStack = new Stack<Integer>();// maintainig a stack for push pop and get minimum Element
-    static int minElement; // a static variable which always hold minimum value
+    static Stack<Integer> minStack = new Stack<>();// stack to maintain the minElemnts
 
     public static void main(String[] args) { // code controller
         // operations to update the stack
@@ -12,53 +12,47 @@ public class MinumumElement {
         push(7);
         push(4);
         getminimum();
+        System.out.println(pop());
         pop();
         pop();
+        System.out.println(getminimum());
         pop();
-        getminimum();
+
     }
 
     public static void push(int element) {
+
         if (myStack.isEmpty()) { // check wheter stack empty or not if empty then incoming element is a minimum
                                  // element
-            minElement = element;
 
             myStack.push(element);
+            minStack.push(element);
+
             return;
         }
-        if (element < minElement) {
-            /*
-             * generating a flag which notify that the current operational value
-             * are minimum or not and push that flag in stack and our minimum value holds
-             * the incoming element
-             */
-            int number = 2 * element - minElement;
-            minElement = element;
-            myStack.push(number);
+        if (element < minStack.peek()) {
+
+            minStack.push(element);
+            myStack.push(element);
+
         } else {
             myStack.push(element); // if element greater than minelemnt than siply push it to stack
         }
     }
 
-    public static void pop() {
-        if (myStack.isEmpty()) {
-            System.out.println("Stack is empty");
-            return;
-        }
+    public static int pop() {
+
         int top = myStack.pop();
-        if (top < minElement) {
-            System.out.println(top);
-            minElement = 2 * minElement - top;// pop value is our minimum value than we find our next min using reversed
-                                              // of flag generating formula
+        if (top == minStack.peek()) {
+            minStack.pop();
+
         }
+        return top;
 
     }
 
-    public static void getminimum() {
-        if (myStack.isEmpty()) {
-            System.out.println("Stack is empty"); // if empty than not possible
-            return;
-        }
-        System.out.println(minElement);// prints the minimum elemnet in 0(1)
+    public static int getminimum() {
+
+        return minStack.peek();// prints the minimum elemnet in 0(1)
     }
 }
