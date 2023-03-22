@@ -1,0 +1,3 @@
+Real World use cases of stack:-
+
+To support Undo/Redo opeartions in any application during editing something we can use stacks. Here we can maintain two stacks one for redo operation and one for undo operation. For example we can say that to handle any component redo/undo states both of the stacks can have component's states(apply debouncing to store batch operations in states) as their elements.
